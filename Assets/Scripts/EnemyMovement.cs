@@ -7,15 +7,21 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField]
     public Transform[] waypoints; // Array cu punctele de pe traseu
-    private float speed = 5f; // Viteza de deplasare a obiectului
+    [SerializeField] Animator anim;
+    private float speed = 10f; // Viteza de deplasare a obiectului
 
     private int currentWaypointIndex = 0;
-
+    private void Start()
+    {
+        //lock the object so it doesn't fall
+    }
     void Update()
     {
         // Dacă mai sunt puncte pe traseu
         if (currentWaypointIndex < waypoints.Length)
         {
+            //rotate the object to face the next waypoint
+            transform.LookAt(waypoints[currentWaypointIndex].position);
             // Calculăm direcția spre punctul următor
             Vector3 direction = waypoints[currentWaypointIndex].position - transform.position;
             direction.Normalize();
@@ -28,11 +34,32 @@ public class EnemyMovement : MonoBehaviour
             {
                 currentWaypointIndex++;
             }
+            if (currentWaypointIndex == waypoints.Length - 1)
+            {
+                //PlayerScript.onEnemyFinish.Invoke(5);
+                //WaveManager.onEnemyDestroy.Invoke();
+                //GetComponent<IEnemy>().ReachedEnd();
+
+                //Destroy(gameObject);
+            }
+
         }
         else
         {
-            // Dacă obiectul a ajuns la ultimul punct, îl distrugem sau îi oprim mișcarea, în funcție de necesități
-            // Exemplu: Destroy(gameObject);
+            PlayerScript.onEnemyFinish.Invoke(5);
+            WaveManager.onEnemyDestroy.Invoke();
+            //GetComponent<IEnemy>().ReachedEnd();
+            GetComponent<Animator>().SetTrigger("End");
+
+            //StartCoroutine(Wait());
+            if (GetComponent<Animator>())
+            {
+                Destroy(gameObject);
+            }
         }
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1);
     }
 }
