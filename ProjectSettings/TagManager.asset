@@ -7,6 +7,11 @@ TagManager:
   - LifeCanvas
   - Money Canvas
   - Start Point
+  - Enemy
+  - Castle
+  - enemyBug
+  - Dead
+  - Wave
   layers:
   - Default
   - TransparentFX

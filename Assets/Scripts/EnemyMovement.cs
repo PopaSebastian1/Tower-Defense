@@ -36,18 +36,16 @@ public class EnemyMovement : MonoBehaviour
             }
             if (currentWaypointIndex == waypoints.Length - 1)
             {
-                //PlayerScript.onEnemyFinish.Invoke(5);
-                //WaveManager.onEnemyDestroy.Invoke();
-                //GetComponent<IEnemy>().ReachedEnd();
-
-                //Destroy(gameObject);
+               
             }
 
         }
         else
         {
-            PlayerScript.onEnemyFinish.Invoke(5);
             WaveManager.onEnemyDestroy.Invoke();
+            var enemy= GetComponent<IEnemy>();
+
+            enemy.ReachedEnd();
             //GetComponent<IEnemy>().ReachedEnd();
             GetComponent<Animator>().SetTrigger("End");
 

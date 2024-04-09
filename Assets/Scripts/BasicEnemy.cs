@@ -18,7 +18,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy
     public void Die()
     {
         Destroy(gameObject);
-        GameObject.FindWithTag("Player").GetComponent<PlayerScript>().EnemyDies(moneyDrop);
+        PlayerScript.onEnemyDies.Invoke(moneyDrop);
     }
     public void ReachedEnd()
     {

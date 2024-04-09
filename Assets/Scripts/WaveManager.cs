@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 public class WaveManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class WaveManager : MonoBehaviour
     private int enemiesLeft;
     private bool isSpawning = false;
     public static UnityEvent onEnemyDestroy;
+    
     public void Awake()
     {
         onEnemyDestroy = new UnityEvent();
@@ -28,6 +30,8 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(StartWave());
+        GameObject.FindWithTag("Wave").GetComponent<TextMeshProUGUI>().text = "Wave " + currentWave.ToString();
+
     }
     private void Update()
     {
@@ -53,6 +57,7 @@ public class WaveManager : MonoBehaviour
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         currentWave++;
+        GameObject.FindWithTag("Wave").GetComponent<TextMeshProUGUI>().text = "Wave " + currentWave.ToString();
         StartCoroutine(StartWave());
     }
 
@@ -79,7 +84,7 @@ public class WaveManager : MonoBehaviour
         Vector3 spawnPoint = GameObject.FindWithTag("Start Point").transform.position;
         //get the vector 3 from spawnPoint
 
-            GameObject prefabToSpawn = enemyPrefab[0];
+        GameObject prefabToSpawn = enemyPrefab[0];
         Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity);
     }
     private void EnemyDestroyed()
