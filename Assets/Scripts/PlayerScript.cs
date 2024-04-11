@@ -13,20 +13,19 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int money = 200;
     [Header("Events")]
     public static UnityEvent<int> onEnemyFinish= new UnityEvent<int>();
-    public static UnityEvent<int> onEnemyDies = new UnityEvent<int>();
+    public static UnityEvent<int> addMoney = new UnityEvent<int>();
     [Header("References")]
     private GameObject lifeCanvas, moneyCanvas, waveCanvas;
-
     private void Awake()
     {
         //add a listener to the event for a fucntion EnemyFinish that takes an int as a parameter
         onEnemyFinish.AddListener(EnemyFinish);
-        onEnemyDies.AddListener(EnemyDies);
+        addMoney.AddListener(EnemyDies);
     }
 
     private void EnemyFinish(int hp)
     {
-        health -=5;
+        health -=hp;
         lifeCanvas.GetComponent<TextMeshProUGUI>().text ="HP "+ health.ToString();
 
     }
@@ -35,6 +34,31 @@ public class PlayerScript : MonoBehaviour
         money += moneyDrop;
         moneyCanvas.GetComponent<TextMeshProUGUI>().text ="Money "+ money.ToString();
 
+    }
+    public int GetHealth()
+    {
+        return health;
+    }
+    public int GetMoney()
+    {
+        return money;
+    }
+    public void SetHealth(int newHealth)
+    {
+        health = newHealth;
+    }
+    public void SetMoney(int newMoney)
+    {
+        money = newMoney;
+    }
+    public void AddMoney(int moneyToAdd)
+    {
+        money += moneyToAdd;
+    }
+    public void RemoveMoney(int moneyToRemove)
+    {
+        money -= moneyToRemove;
+        moneyCanvas.GetComponent<TextMeshProUGUI>().text = "Money " + money.ToString();
     }
 
     void Start()

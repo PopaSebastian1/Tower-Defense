@@ -24,7 +24,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy
     public void Die()
     {
         Destroy(gameObject);
-        PlayerScript.onEnemyDies.Invoke(moneyDrop);
+        PlayerScript.addMoney.Invoke(moneyDrop);
         WaveManager.onEnemyDestroy.Invoke();
     }
     public void ReachedEnd()

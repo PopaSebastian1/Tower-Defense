@@ -5,9 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 public class WaveManager : MonoBehaviour
+        
 {
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefab;
+    [SerializeField] private GameObject soundManager;
     [Header("Attributes")]
     [SerializeField] public int baseEnemies = 8;
     [SerializeField] public float enemiesPerSecond = 0.5f;
@@ -57,6 +59,7 @@ public class WaveManager : MonoBehaviour
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         currentWave++;
+        PlayerScript.addMoney.Invoke(100);
         GameObject.FindWithTag("Wave").GetComponent<TextMeshProUGUI>().text = "Wave " + currentWave.ToString();
         StartCoroutine(StartWave());
     }
@@ -71,6 +74,8 @@ public class WaveManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0);
         }
+        soundManager.GetComponent<SoundManager>().PlayStartSound();
+
         enemiesLeft = CalculateEnemies();
         isSpawning = true;
 
