@@ -27,13 +27,13 @@ public class PlayerScript : MonoBehaviour
     private void EnemyFinish(int hp)
     {
         health -=5;
-        lifeCanvas.GetComponent<TextMeshProUGUI>().text = health.ToString();
+        lifeCanvas.GetComponent<TextMeshProUGUI>().text ="HP "+ health.ToString();
 
     }
     private void EnemyDies(int moneyDrop)
     {
         money += moneyDrop;
-        moneyCanvas.GetComponent<TextMeshProUGUI>().text = money.ToString();
+        moneyCanvas.GetComponent<TextMeshProUGUI>().text ="Money "+ money.ToString();
 
     }
 
@@ -41,8 +41,8 @@ public class PlayerScript : MonoBehaviour
     {
         lifeCanvas = GameObject.FindWithTag("LifeCanvas");
         moneyCanvas= GameObject.FindWithTag("Money Canvas");
-        lifeCanvas.GetComponent<TextMeshProUGUI>().text = health.ToString();
-        moneyCanvas.GetComponent<TextMeshProUGUI>().text = money.ToString();    
+        lifeCanvas.GetComponent<TextMeshProUGUI>().text = "HP "+health.ToString();
+        moneyCanvas.GetComponent<TextMeshProUGUI>().text = "Money " + money.ToString();    
 
     }
     void Update()

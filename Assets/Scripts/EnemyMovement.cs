@@ -42,9 +42,8 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            WaveManager.onEnemyDestroy.Invoke();
+            //WaveManager.onEnemyDestroy.Invoke();
             var enemy= GetComponent<IEnemy>();
-
             enemy.ReachedEnd();
             //GetComponent<IEnemy>().ReachedEnd();
             GetComponent<Animator>().SetTrigger("End");
