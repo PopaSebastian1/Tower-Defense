@@ -16,6 +16,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private string enemyTag = "Enemy";
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firingPoint;
+    [SerializeField] private GameObject lookAtObj;
 
     private ITurretStats basicTurret;
     private Transform target;
@@ -58,6 +59,11 @@ public class Turret : MonoBehaviour
         }
         else
         {
+            Vector3 dir = target.transform.position - lookAtObj.transform.position;
+            dir.y = 0;
+            Quaternion rot = Quaternion.LookRotation(dir);
+            lookAtObj.transform.rotation = Quaternion.Slerp(lookAtObj.transform.rotation, rot, 5 * Time.deltaTime);
+
             timeUntilFire += Time.deltaTime;
 
             if (timeUntilFire >= 1f / bps)
