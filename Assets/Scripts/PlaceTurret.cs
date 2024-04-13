@@ -2,27 +2,32 @@
 
 public class PlaceTurretOnClick : MonoBehaviour
 {
-    public GameObject turretPrefab; 
-    public float placementRadius = 1f; 
+    public float placementRadius = 1f;
     private GameObject player;
+
     public void Start()
     {
         player = GameObject.FindWithTag("Player");
     }
     private void Update()
     {
-      
-        if (Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButton(0))
         {
-           
+
             Vector3 clickPosition = GetMouseWorldPosition();
+            if(clickPosition == Vector3.zero)
+            {
+                return;
+            }
 
             if (!IsTurretPresentNearby(clickPosition))
             {
-                if (player.GetComponent<PlayerScript>().GetMoney() >= 100)
+                if (player.GetComponent<PlayerScript>().GetMoney() >= BuildManager.instance.GetTurretToBuild().GetComponent<ITurretStats>().GetCost())
                 {
                     player.GetComponent<PlayerScript>().RemoveMoney(100);
-                    Instantiate(turretPrefab, clickPosition, Quaternion.identity);
+                    var turret = BuildManager.instance.GetTurretToBuild();
+                    Instantiate(turret, clickPosition, Quaternion.identity);
                 }
                 else
                 {
@@ -37,42 +42,44 @@ public class PlaceTurretOnClick : MonoBehaviour
         }
     }
 
-    
+
     private Vector3 GetMouseWorldPosition()
     {
-        
+
         Vector3 mousePosition = Input.mousePosition;
 
-       
+
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 
-       
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            
-            return hit.point;
+            if (hit.collider.CompareTag("Plane"))
+            {
+                return hit.point;
+
+            }
         }
 
-        
         return Vector3.zero;
     }
 
 
     private bool IsTurretPresentNearby(Vector3 position)
     {
-        
+
         Collider[] colliders = Physics.OverlapSphere(position, placementRadius);
 
-    
+
         foreach (Collider collider in colliders)
         {
-            
+
             if (collider.CompareTag("Turret"))
             {
-                return true; 
+                return true;
             }
         }
 
-        return false; 
+        return false;
     }
 }

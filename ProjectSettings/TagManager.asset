@@ -12,6 +12,8 @@ TagManager:
   - enemyBug
   - Dead
   - Wave
+  - Turret
+  - Plane
   layers:
   - Default
   - TransparentFX
@@ -48,4 +50,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ui
+    uniqueID: 3420483875
     locked: 0

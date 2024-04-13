@@ -104,6 +104,7 @@ MonoBehaviour:
   fireRate: 1
   moneyPerSecond: 0
   cost: 100
+  prefab: {fileID: 8767007631068661863}
 --- !u!65 &5556491785129124429
 BoxCollider:
   m_ObjectHideFlags: 0

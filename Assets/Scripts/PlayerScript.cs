@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     public static UnityEvent<int> onEnemyFinish= new UnityEvent<int>();
     public static UnityEvent<int> addMoney = new UnityEvent<int>();
     [Header("References")]
+    [SerializeField]
     private GameObject lifeCanvas, moneyCanvas, waveCanvas;
     private void Awake()
     {
@@ -26,13 +27,13 @@ public class PlayerScript : MonoBehaviour
     private void EnemyFinish(int hp)
     {
         health -=hp;
-        lifeCanvas.GetComponent<TextMeshProUGUI>().text ="HP "+ health.ToString();
+        lifeCanvas.GetComponent<TextMeshProUGUI>().text = health.ToString();
 
     }
     private void EnemyDies(int moneyDrop)
     {
         money += moneyDrop;
-        moneyCanvas.GetComponent<TextMeshProUGUI>().text ="Money "+ money.ToString();
+        moneyCanvas.GetComponent<TextMeshProUGUI>().text = money.ToString();
 
     }
     public int GetHealth()
@@ -58,15 +59,14 @@ public class PlayerScript : MonoBehaviour
     public void RemoveMoney(int moneyToRemove)
     {
         money -= moneyToRemove;
-        moneyCanvas.GetComponent<TextMeshProUGUI>().text = "Money " + money.ToString();
+        moneyCanvas.GetComponent<TextMeshProUGUI>().text = money.ToString();
     }
 
     void Start()
     {
-        lifeCanvas = GameObject.FindWithTag("LifeCanvas");
-        moneyCanvas= GameObject.FindWithTag("Money Canvas");
-        lifeCanvas.GetComponent<TextMeshProUGUI>().text = "HP "+health.ToString();
-        moneyCanvas.GetComponent<TextMeshProUGUI>().text = "Money " + money.ToString();    
+        
+        lifeCanvas.GetComponent<TextMeshProUGUI>().text = health.ToString();
+        moneyCanvas.GetComponent<TextMeshProUGUI>().text =  money.ToString();
 
     }
     void Update()

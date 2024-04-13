@@ -20,5 +20,8 @@ public interface ITurretStats
     float GetMoneyPerSecond();
 
     int GetCost();
+    GameObject GetPrefab();
+
+    void SetPrefab(GameObject _prefab);
 
 }

@@ -21,7 +21,7 @@ public class WaveManager : MonoBehaviour
     private int enemiesLeft;
     private bool isSpawning = false;
     public static UnityEvent onEnemyDestroy;
-    
+    [SerializeField] private GameObject waveText;
     public void Awake()
     {
         onEnemyDestroy = new UnityEvent();
@@ -32,7 +32,7 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(StartWave());
-        GameObject.FindWithTag("Wave").GetComponent<TextMeshProUGUI>().text = "Wave " + currentWave.ToString();
+        waveText.GetComponent<TextMeshProUGUI>().text = "Wave " + currentWave.ToString();
 
     }
     private void Update()
@@ -60,7 +60,7 @@ public class WaveManager : MonoBehaviour
         timeSinceLastSpawn = 0f;
         currentWave++;
         PlayerScript.addMoney.Invoke(100);
-        GameObject.FindWithTag("Wave").GetComponent<TextMeshProUGUI>().text = "Wave " + currentWave.ToString();
+        waveText.GetComponent<TextMeshProUGUI>().text = "Wave " + currentWave.ToString();
         StartCoroutine(StartWave());
     }
 
