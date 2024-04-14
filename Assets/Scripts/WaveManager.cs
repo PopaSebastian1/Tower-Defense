@@ -1,24 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 public class WaveManager : MonoBehaviour
         
 {
     [Header("References")]
-    [SerializeField] private GameObject[] enemyPrefab;
+    [SerializeField] private List<GameObject> enemyPrefab;
     [SerializeField] private GameObject soundManager;
     [Header("Attributes")]
     [SerializeField] public int baseEnemies = 8;
-    [SerializeField] public float enemiesPerSecond = 0.5f;
+    [SerializeField] public float enemiesPerSecond = 1f;
     [SerializeField] public float timeBetweenWaves = 5;
     [SerializeField] public float enemyMultiplier = 0.75f;
+    [SerializeField] public float enemiesPerSecondCap = 15f;
     private int currentWave = 1;
     private float timeSinceLastSpawn;
     private int enemiesAlive;
     private int enemiesLeft;
+    private float eps;
     private bool isSpawning = false;
     public static UnityEvent onEnemyDestroy;
     [SerializeField] private GameObject waveText;
@@ -40,7 +44,7 @@ public class WaveManager : MonoBehaviour
         if (!isSpawning)
             return;
         timeSinceLastSpawn += Time.deltaTime;
-        if (timeSinceLastSpawn >= (1 / enemiesPerSecond) && enemiesLeft>0)
+        if (timeSinceLastSpawn >= (1 / eps) && enemiesLeft>0)
         {
             SpawnEnemy();
             enemiesLeft--;
@@ -59,7 +63,10 @@ public class WaveManager : MonoBehaviour
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         currentWave++;
-        PlayerScript.addMoney.Invoke(100);
+        GameObject[] moneyTurrets= GameObject.FindGameObjectsWithTag("MoneyTurret");
+        int moneyToAdd = 0;
+        moneyToAdd += moneyTurrets.Length * 50;
+        PlayerScript.addMoney.Invoke(moneyToAdd+100);
         waveText.GetComponent<TextMeshProUGUI>().text = "Wave " + currentWave.ToString();
         StartCoroutine(StartWave());
     }
@@ -75,21 +82,31 @@ public class WaveManager : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         soundManager.GetComponent<SoundManager>().PlayStartSound();
-
-        enemiesLeft = CalculateEnemies();
+        if (currentWave % 3 == 0 && currentWave != 0)
+        {
+            enemyPrefab.Add(enemyPrefab[0]);
+        }
+            
         isSpawning = true;
+        enemiesLeft = CalculateEnemies();
+        eps =CalculateEnemiesPerSecond();
 
     }
     private int CalculateEnemies()
     {
         return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, enemyMultiplier));
+    } 
+    private float CalculateEnemiesPerSecond()
+    {
+        return Mathf.Clamp((enemiesPerSecond * Mathf.Pow(currentWave, enemyMultiplier)), 0f, enemiesPerSecondCap);
     }
     private void SpawnEnemy()
     {
+
         Vector3 spawnPoint = GameObject.FindWithTag("Start Point").transform.position;
         //get the vector 3 from spawnPoint
-
-        GameObject prefabToSpawn = enemyPrefab[0];
+        int index=UnityEngine.Random.Range(0, enemyPrefab.Count);
+        GameObject prefabToSpawn = enemyPrefab[index];
         Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity);
     }
     private void EnemyDestroyed()

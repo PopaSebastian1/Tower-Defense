@@ -14,6 +14,8 @@ TagManager:
   - Wave
   - Turret
   - Plane
+  - MoneyTurret
+  - Shop
   layers:
   - Default
   - TransparentFX

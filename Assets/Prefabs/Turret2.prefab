@@ -79,14 +79,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d8d7e7252c7d934f9a2734fe7d3e678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  targetingRange: 0
-  bps: 0
-  moneyPerSecond: 0
-  cost: 0
   enemyTag: Enemy
   bulletPrefab: {fileID: 1240887441953726, guid: 8a976dcd328a4664c85144f33b9c46b0, type: 3}
   firingPoint: {fileID: 3488499061438008415}
+  lookAtObj: {fileID: 3488499061438042235}
 --- !u!65 &5556491785129124429
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -123,7 +119,7 @@ MonoBehaviour:
   name: 
   damage: 2
   range: 10
-  fireRate: 2
+  fireRate: 1
   moneyPerSecond: 0
   cost: 300
   prefab: {fileID: 8767007631068661863}
@@ -260,6 +256,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &3488499061438042235 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100006, guid: 31b5711eb7fc9e74c9b9596af3800686, type: 3}
+  m_PrefabInstance: {fileID: 3488499061438142173}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3488499061438042239 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100002, guid: 31b5711eb7fc9e74c9b9596af3800686, type: 3}

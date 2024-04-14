@@ -25,7 +25,7 @@ public class PlaceTurretOnClick : MonoBehaviour
             {
                 if (player.GetComponent<PlayerScript>().GetMoney() >= BuildManager.instance.GetTurretToBuild().GetComponent<ITurretStats>().GetCost())
                 {
-                    player.GetComponent<PlayerScript>().RemoveMoney(100);
+                    player.GetComponent<PlayerScript>().RemoveMoney(BuildManager.instance.GetTurretToBuild().GetComponent<ITurretStats>().GetCost());
                     var turret = BuildManager.instance.GetTurretToBuild();
                     Instantiate(turret, clickPosition, Quaternion.identity);
                 }

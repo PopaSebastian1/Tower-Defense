@@ -1,4 +1,4 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -6,11 +6,11 @@ using UnityEditor;
 public class Turret : MonoBehaviour
 {
     [Header("Attribute")]
-    [SerializeField] private float damage = 1f;
-    [SerializeField] private float targetingRange = 5f;
-    [SerializeField] private float bps = 1f; // bullets per second
-    [SerializeField] private float moneyPerSecond = 0f;
-    [SerializeField] private int cost = 100;
+    private float damage;
+    private float targetingRange;
+    private float bps;
+    private float moneyPerSecond;
+    private int cost;
 
     [Header("References")]
     [SerializeField] private string enemyTag = "Enemy";
@@ -25,11 +25,11 @@ public class Turret : MonoBehaviour
     {
         return damage;
     }
-    private void OnDrawGizmosSelected()
-    {
-        Handles.color = Color.red;
-        Handles.DrawWireDisc(transform.position, transform.up, targetingRange);
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Handles.color = Color.red;
+    //    Handles.DrawWireDisc(transform.position, transform.up, targetingRange);
+    //}
 
     // Start is called before the first frame update
     void Start()
@@ -37,9 +37,9 @@ public class Turret : MonoBehaviour
         basicTurret = GetComponent<ITurretStats>();
         damage = basicTurret.GetDamage();
         targetingRange = basicTurret.GetRange();
-        bps= basicTurret.GetFireRate();
+        bps = basicTurret.GetFireRate();
         cost = basicTurret.GetCost();
-        moneyPerSecond= basicTurret.GetMoneyPerSecond();
+        moneyPerSecond = basicTurret.GetMoneyPerSecond();
 
 
     }
@@ -59,6 +59,7 @@ public class Turret : MonoBehaviour
         }
         else
         {
+            
             Vector3 dir = target.transform.position - lookAtObj.transform.position;
             dir.y = 0;
             Quaternion rot = Quaternion.LookRotation(dir);
@@ -126,7 +127,7 @@ public class Turret : MonoBehaviour
             targetingRange = basicTurret.GetRange();
             bps = basicTurret.GetFireRate();
             cost = basicTurret.GetCost();
-            moneyPerSecond= basicTurret.GetMoneyPerSecond();
+            moneyPerSecond = basicTurret.GetMoneyPerSecond();
         }
         else
         {

@@ -1904,7 +1904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   speed: 5
-  moneyDrop: 10
+  moneyDrop: 25
 --- !u!65 &-3207755090188934617
 BoxCollider:
   m_ObjectHideFlags: 0
