@@ -16,6 +16,8 @@ TagManager:
   - Plane
   - MoneyTurret
   - Shop
+  - GameType
+  - Tag
   layers:
   - Default
   - TransparentFX

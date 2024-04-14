@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour
 {
     // Start is called before the first frame update
     [Header("Atributes")]
-    [SerializeField] private int health = 100;
+    private int health;
     [SerializeField] private int money = 200;
     [Header("Events")]
     public static UnityEvent<int> onEnemyFinish= new UnityEvent<int>();
@@ -65,8 +65,17 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         
+        if(GameType.instance.GetHardMode() == true)
+        {
+            health = 1;
+        }
+        else
+        {
+            health = 100;
+        }
         lifeCanvas.GetComponent<TextMeshProUGUI>().text = health.ToString();
         moneyCanvas.GetComponent<TextMeshProUGUI>().text =  money.ToString();
+
 
     }
     void Update()
