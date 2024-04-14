@@ -1905,6 +1905,9 @@ MonoBehaviour:
   health: 1
   speed: 5
   moneyDrop: 25
+  deathParticles: {fileID: 632039313022539985, guid: 983addff673bd4aa0816972e4997a704, type: 3}
+  particleDuration: 4
+  particleSpeedMultiplier: 2
 --- !u!65 &-3207755090188934617
 BoxCollider:
   m_ObjectHideFlags: 0

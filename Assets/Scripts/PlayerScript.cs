@@ -16,7 +16,9 @@ public class PlayerScript : MonoBehaviour
     public static UnityEvent<int> addMoney = new UnityEvent<int>();
     [Header("References")]
     [SerializeField]
-    private GameObject lifeCanvas, moneyCanvas, waveCanvas;
+    private GameObject lifeCanvas, moneyCanvas, waveCanvas, gameOver;
+    [SerializeField]
+    private GameObject canvas;
     private void Awake()
     {
         //add a listener to the event for a fucntion EnemyFinish that takes an int as a parameter
@@ -28,7 +30,13 @@ public class PlayerScript : MonoBehaviour
     {
         health -=hp;
         lifeCanvas.GetComponent<TextMeshProUGUI>().text = health.ToString();
-
+        if(health <= 0)
+        {
+            //game over
+            canvas.SetActive(true);
+            gameOver.GetComponent<TextMeshProUGUI>().text= "Game Over";
+ 
+        }
     }
     private void EnemyDies(int moneyDrop)
     {
