@@ -29,6 +29,7 @@ public class SecondEnemy : MonoBehaviour, IEnemy
     }
     public void ReachedEnd()
     {
+        GameObject.Find("SoundManager").GetComponent<SoundManager>().PlayEnemyFinish();
         PlayerScript.onEnemyFinish.Invoke((int)health);
         WaveManager.onEnemyDestroy.Invoke();
         Destroy(gameObject);

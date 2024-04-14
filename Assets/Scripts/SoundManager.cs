@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
     //add sounds to this file and play them in the game
     [SerializeField]
     public AudioClip startSound;
+    [SerializeField]
+    public AudioClip enemyFinish;
     public AudioSource audioSource;
     void Start()
     {
@@ -23,6 +25,11 @@ public class SoundManager : MonoBehaviour
     public void PlayStartSound()
     {
         audioSource.clip = startSound;
+        audioSource.Play();
+    }
+    public void PlayEnemyFinish()
+    {
+        audioSource.clip = enemyFinish;
         audioSource.Play();
     }
 }
